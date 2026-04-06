@@ -19,11 +19,8 @@ class WeeklyLogListCreateView(APIView):
 
         if user.role == 'STUDENT':
             logs = WeeklyLog.objects.filter(student=user)
-
         elif user.role == 'WORKPLACE_SUPERVISOR':
-            logs = WeeklyLog.objects.filter(
                 placement__workplace_supervisor=user
-            ).exclude(status=WeeklyLog.DRAFT)
 
         elif user.role == 'ACADEMIC_SUPERVISOR':
             logs = WeeklyLog.objects.filter(
@@ -38,6 +35,9 @@ class WeeklyLogListCreateView(APIView):
                 'student', 'placement'
             )
 
+
+        elif user.role in ['ACADEMIC_SUPERVISOR', 'ADMIN']:
+            logs = WeeklyLog.objects.all()
         else:
             return Response(
                 {'error': 'Not authorized'},

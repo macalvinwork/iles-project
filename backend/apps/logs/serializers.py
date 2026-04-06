@@ -1,11 +1,14 @@
 from rest_framework import serializers
+from django.utils import timezone
 from apps.logs.models import WeeklyLog, LogStatusHistory
 
 
 class WeeklyLogSerializer(serializers.ModelSerializer):
+
     student_name = serializers.SerializerMethodField()
     student_email = serializers.SerializerMethodField()
     placement_company = serializers.SerializerMethodField()
+
 
     class Meta:
         model = WeeklyLog
@@ -33,6 +36,14 @@ class WeeklyLogSerializer(serializers.ModelSerializer):
         ]:
             raise serializers.ValidationError(
                 'This log cannot be edited in its current status.'
+            'student', 'status', 'submitted_at',
+            'created_at', 'updated_at'
+            )
+
+    def validate(self, data):
+        if self.instance and self.instance.status == WeeklyLog.APPROVED:
+            raise serializers.ValidationError(
+                'This log is approved and cannot be edited.'
             )
         return data
 
@@ -84,12 +95,69 @@ class LogAcademicEvaluationSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 'Log must be in PENDING_ACADEMIC_EVALUATION status.'
             )
+
+    def validate(self, data):
+        log = self.context.get('log')
+
+        if log.status != WeeklyLog.DRAFT:
+            raise serializers.ValidationError(
+                'Only a log in DRAFT status can be submitted.'
+            )
+
+        if timezone.now() > log.submission_deadline:
+            raise serializers.ValidationError(
+                'The submission deadline has passed.'
+            )
+
+        if not log.activities.strip():
+            raise serializers.ValidationError(
+                'Activities field cannot be empty.'
+            )
+
+        return data
+
+
+class LogReviewSerializer(serializers.Serializer):
+
+    action = serializers.ChoiceField(choices=['APPROVE', 'RETURN'])
+    comment = serializers.CharField(required=False, allow_blank=True)
+
+    def validate(self, data):
+        log = self.context.get('log')
+        action = data.get('action')
+        comment = data.get('comment', '')
+
+        if log.status != WeeklyLog.SUBMITTED:
+            raise serializers.ValidationError(
+                'Only a SUBMITTED log can be reviewed.'
+            )
+
+        if action == 'RETURN' and not comment.strip():
+            raise serializers.ValidationError(
+                'A comment is required when returning a log.'
+            )
+
+        return data
+
+
+class LogFinalApproveSerializer(serializers.Serializer):
+
+    def validate(self, data):
+        log = self.context.get('log')
+
+        if log.status != WeeklyLog.REVIEWED:
+            raise serializers.ValidationError(
+                'Only a REVIEWED log can be given final approval.'
+            )
+
         return data
 
 
 class LogStatusHistorySerializer(serializers.ModelSerializer):
     changed_by_name = serializers.SerializerMethodField()
     changed_by_role = serializers.SerializerMethodField()
+
+    changed_by_name = serializers.SerializerMethodField()
 
     class Meta:
         model = LogStatusHistory
