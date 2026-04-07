@@ -1,0 +1,26 @@
+System Users (Roles)
+
+The system has four types of users. Each user sees a different dashboard with only the options they need.
+
+| Role | Who They Are | What They Do in the System |
+|------|--------------|---------------------------|
+| Student Intern | A Makerere student on internship | Creates and submits weekly logs. Views feedback and final scores. |
+| Workplace Supervisor | A staff member at the host company | Reviews student logs. Approves or returns them with comments. |
+| Academic Supervisor | A university lecturer | Evaluates students using defined criteria. Views approved logs. |
+| Administrator | University internship office staff | Manages users, placements, scoring criteria, and generates reports. |
+
+System Modules
+
+The system is divided into the following modules. Each module serves a specific purpose.
+
+| Module | Purpose |
+|--------|---------|
+| User and Role Management | Creating accounts, assigning roles, login and logout. |
+| Internship Placement | Recording where each student is placed, with which supervisor and for what period. |
+| Weekly Logbook | Students write their weekly activity logs here. The log goes through a review process. |
+| Supervisor Review Workflow | Workplace supervisors review submitted logs and approve or return them. |
+| Academic Evaluation | Academic supervisors score students at the end of the internship. |
+| Score Computation | The system automatically calculates the final score from the criteria scores. |
+| Dashboards and Reports | Each role sees a summary of their tasks. Admin can generate full reports. |
+
+
