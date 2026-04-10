@@ -1,18 +1,16 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import WeeklyLog from "./pages/WeeklyLog";
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <h1>ILES System</h1>
-
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/weekly-log" element={<WeeklyLog />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
+
+export default App;
