@@ -1,0 +1,46 @@
+MAKERERE UNIVERSITY
+CSC 1202 - Software Development Project (2026)
+Internship Logging and Evaluation System (ILES)
+Problem Statement and Project Scope
+Week 1 Submission
+Submitted to: Dr. Peter Khisa Wakholi
+Date: 5 April 2026
+
+Submitted by:
+Ggubya Gerald
+Team Lead
+Group Members:
+Ggubya Gerald  -  Team Lead
+Wamala Macalvin  -  Backend Developer
+Bukenya Daniel  -  Frontend Developer
+Arineitwe Kenneth  -  Tester and Documenter
+
+ Problem Statement
+
+Internship management at Makerere University is currently done manually. Students submit handwritten logbooks, workplace supervisors sign papers, and academic supervisors compute scores by hand. There is no central system that tracks everything in one place.
+
+The main problems we identified are:
+-	Students have no system reminding them of submission deadlines and logs are sometimes submitted late or lost.
+-	Workplace supervisors review logs on paper and their comments are not always kept properly.
+-	Academic supervisors calculate student scores manually which can lead to errors or inconsistencies.
+-	The university has no quick way to see how many students have completed their internship tasks or how they are performing overall.
+-	There is no record of who approved what and when, so it is hard to resolve disputes.
+
+To solve these problems, we are building ILES - the Internship Logging and Evaluation System. It is a web application where each user type has their own dashboard and can only do the things they are supposed to do.
+
+Project Scope
+
+ What the System Will Do
+•	Let students create and submit weekly activity logs online.
+•	Let workplace supervisors review, approve or return those logs with written comments.
+•	Let academic supervisors score students using set criteria and have the system compute the final score automatically.
+•	Let the administrator manage user accounts, assign internship placements, define scoring criteria, and view reports.
+•	Enforce submission deadlines so late submissions are automatically blocked.
+•	Keep a full history of every action taken on each log so nothing is lost.
+
+What the System Will NOT Do
+	It will not manage payments or financial records related to internships.
+	It will not send SMS or email notifications (this may be added later).
+	It will not handle company registration or job postings.
+	It will not connect to any existing Makerere University system at this stage.
+
