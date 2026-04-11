@@ -1,3 +1,4 @@
+
 import Layout from "../../components/Layout";
 
 export default function AcademicDashboard() {
@@ -27,3 +28,13 @@ const card = {
   background: "#fff",
   borderRadius: "10px",
 };
+
+export default function Dashboard() {
+  return (
+    <div>
+      <h1>Academic Dashboard</h1>
+      <p>Evaluate students and assign scores</p>
+    </div>
+  );
+}
+

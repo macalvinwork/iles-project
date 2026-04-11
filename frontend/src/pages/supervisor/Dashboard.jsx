@@ -1,3 +1,4 @@
+
 import Layout from "../../components/Layout";
 
 export default function SupervisorDashboard() {
@@ -27,3 +28,12 @@ const card = {
   background: "#fff",
   borderRadius: "10px",
 };
+=======
+export default function Dashboard() {
+  return (
+    <div>
+      <h1>Supervisor Dashboard</h1>
+      <p>Review and approve student logs</p>
+    </div>
+  );
+}
