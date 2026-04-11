@@ -14,13 +14,18 @@ function App() {
   return (
     <Routes>
 
+
       <Route path="/" element={<Login />} />
 
-=======
+
       {/* PUBLIC */}
       <Route path="/" element={<Login />} />
 
       {/* STUDENT */}
+
+
+      <Route path="/" element={<Login />} />
+
 
       <Route
         path="/student"
@@ -30,6 +35,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+
 
 
       {/* SUPERVISOR */}
