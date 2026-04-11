@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-
 import Login from "./pages/auth/Login";
 
 import StudentDashboard from "./pages/student/Dashboard";
@@ -12,10 +11,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 function App() {
   return (
     <Routes>
-      {/* PUBLIC */}
       <Route path="/" element={<Login />} />
 
-      {/* STUDENT */}
       <Route
         path="/student"
         element={
@@ -25,7 +22,6 @@ function App() {
         }
       />
 
-      {/* SUPERVISOR */}
       <Route
         path="/supervisor"
         element={
@@ -35,7 +31,6 @@ function App() {
         }
       />
 
-      {/* ACADEMIC */}
       <Route
         path="/academic"
         element={
@@ -45,7 +40,6 @@ function App() {
         }
       />
 
-      {/* ADMIN */}
       <Route
         path="/admin"
         element={
