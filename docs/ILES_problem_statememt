@@ -1,0 +1,13 @@
+Problem Statement
+
+Internship management at Makerere University is currently done manually. Students submit handwritten logbooks, workplace supervisors sign papers, and academic supervisors compute scores by hand. There is no central system that tracks everything in one place.
+
+The main problems we identified are:
+-	Students have no system reminding them of submission deadlines and logs are sometimes submitted late or lost.
+-	Workplace supervisors review logs on paper and their comments are not always kept properly.
+-	Academic supervisors calculate student scores manually which can lead to errors or inconsistencies.
+-	The university has no quick way to see how many students have completed their internship tasks or how they are performing overall.
+-	There is no record of who approved what and when, so it is hard to resolve disputes.
+
+To solve these problems, we are building ILES - the Internship Logging and Evaluation System. It is a web application where each user type has their own dashboard and can only do the things they are supposed to do.
+
