@@ -1,0 +1,17 @@
+Project Scope
+
+ What the System Will Do
+•	The system will let students create and submit weekly activity logs online.
+•	The system will let workplace supervisors review, approve or return those logs with written comments.
+•	The system will let academic supervisors score students using set criteria and have the system compute the final score automatically.
+•	Let the administrator manage user accounts, assign internship placements, define scoring criteria, and view reports.
+•	Enforce submission deadlines so late submissions are automatically blocked.
+•	Keep a full history of every action taken on each log so nothing is lost.
+
+What the System Will NOT Do
+	The system will not manage payments or financial records related to internships.
+	It will not send SMS or email notifications (this may be added later).
+	It will not handle company registration or job postings.
+	It will not connect to any existing Makerere University system at this stage.
+
+
