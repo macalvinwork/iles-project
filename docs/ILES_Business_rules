@@ -1,0 +1,15 @@
+Business Rules
+
+These are the rules that the backend must enforce automatically. The frontend should not be responsible for these - they must be enforced server-side.
+
+•	A student cannot have two internship placements with overlapping dates.
+•	A student can only submit one weekly log per week per placement.
+•	A log cannot be submitted after the submission deadline.
+•	A supervisor can only review logs of students assigned to them.
+•	An academic supervisor can only evaluate each student once per placement.
+•	Evaluation criteria weights must always add up to exactly 100%.
+•	The final evaluation score is computed automatically. It is never entered manually.
+•	Every state change on a log must be saved to the history with who made the change, when, and why.
+•	Once a log is APPROVED, it cannot be edited, deleted, or have its state changed by anyone.
+
+	

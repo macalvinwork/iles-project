@@ -1,0 +1,31 @@
+Workflow States
+
+The WeeklyLog is the main object in the system that goes through a workflow. It starts when a student creates a log and ends when the supervisor gives final approval.
+
+| State | Meaning | Who Can Act On It |
+|-------|---------|-------------------|
+| DRAFT | The log has been created by the student but not yet submitted. The student can still edit it. | Student Intern |
+| SUBMITTED | The student has submitted the log before the deadline. It is now locked from editing. | Workplace Supervisor |
+| REVIEWED | The supervisor has acted on the log by either approving it or returning it for revision. | Workplace Supervisor |
+| APPROVED | The supervisor has given final approval. This is the last state. Nothing changes after this. | No one - it is final |
+
+## Allowed Transitions
+
+| From State | To State | Who Triggers It | Condition |
+|------------|----------|-----------------|-----------|
+| DRAFT | SUBMITTED | Student Intern | Current time must be before the submission deadline. Log must have content. |
+| SUBMITTED | REVIEWED | Workplace Supervisor | Supervisor writes an approval comment. |
+| SUBMITTED | DRAFT | Workplace Supervisor | Supervisor must provide a reason in the comment field. This is required. |
+| REVIEWED | APPROVED | Workplace Supervisor | Final sign-off. Log becomes permanently read-only. |
+
+
+
+## Transitions That Are Not Allowed
+
+| Attempted Transition | Why It Is Rejected |
+|----------------------|--------------------|
+| DRAFT → APPROVED (skipping steps) | A log must go through SUBMITTED and REVIEWED before it can be APPROVED. |
+| APPROVED → any other state | APPROVED is a terminal state. No one can change a log once it is approved. |
+| DRAFT → SUBMITTED after deadline | Even if the log is in DRAFT, submission is blocked once the deadline passes. |
+
+
