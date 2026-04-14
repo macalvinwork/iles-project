@@ -1,0 +1,54 @@
+Test Cases
+Below are test cases covering the main features. Each test case has an input, expected result, and pass/fail space for recording during testing.
+ Authentication Tests
+
+| Test ID | Test Description | Input | Expected Result |
+|---------|------------------|-------|-----------------|
+| T-01 | Valid login | Correct email and password | Login succeeds. User is redirected to their role dashboard. |
+| T-02 | Wrong password | Correct email, wrong password | Login fails with 'Invalid credentials' message. |
+| T-03 | Wrong email | Email not in system | Login fails with 'Invalid credentials' message. |
+| T-04 | Deactivated account | Correct credentials but account is inactive | Login fails with 'Account is deactivated' message. |
+| T-05 | Student sees student dashboard | Login as student | Only student menus and data are visible. |
+| T-06 | Supervisor sees supervisor dashboard | Login as workplace supervisor | Only supervisor menus and data are visible. |
+
+Weekly Log Submission Tests
+
+| Test ID | Test Description | Input | Expected Result |
+|---------|------------------|-------|-----------------|
+| T-07 | Student creates a draft log | Student fills log form and saves as draft | Log saved with status = DRAFT. Not visible to supervisor. |
+| T-08 | Student submits log before deadline | Student clicks submit while deadline has not passed | Log status changes to SUBMITTED. Student can no longer edit it. |
+| T-09 | Student submits after deadline | Student clicks submit after deadline has passed | System rejects submission. Error message shown. |
+| T-10 | Student submits empty log | Student clicks submit with empty activities field | System rejects. Error shown on activities field. |
+| T-11 | Duplicate weekly log | Student tries to create a second log for the same week | System rejects. Error message: log for this week already exists. |
+
+Supervisor Review Tests
+
+| Test ID | Test Description | Input | Expected Result |
+|---------|------------------|-------|-----------------|
+| T-12 | Supervisor sees submitted log | Log is in SUBMITTED state | Log appears in supervisor's review list. |
+| T-13 | Supervisor approves a log | Supervisor clicks approve and writes a comment | Log status changes to REVIEWED. Comment saved. |
+| T-14 | Supervisor returns log without comment | Supervisor clicks return with empty comment field | System rejects. Comment is required for returns. |
+| T-15 | Supervisor returns log with comment | Supervisor clicks return and writes a reason | Log status changes back to DRAFT. Student can resubmit. |
+| T-16 | Supervisor gives final approval | Supervisor clicks final approve on a REVIEWED log | Log status changes to APPROVED. Log becomes read-only. |
+| T-17 | Supervisor cannot review another supervisor's intern | Supervisor tries to access log of another intern | System returns 403 Forbidden. |
+| T-18 | Log history is recorded | After each status change | LogStatusHistory has a new entry with user, timestamp, states, and comment. |
+
+Evaluation Tests
+
+| Test ID | Test Description | Input | Expected Result |
+|---------|------------------|-------|-----------------|
+| T-19 | Academic supervisor submits evaluation | All criteria filled with valid scores | Evaluation saved. Total score computed automatically. |
+| T-20 | Score computation is correct | Technical=80, Communication=70, Professionalism=75 | Total = (80x0.4)+(70x0.3)+(75x0.3) = 32+21+22.5 = 75.5 |
+| T-21 | Duplicate evaluation blocked | Supervisor tries to evaluate same student again | System rejects with error: evaluation already submitted. |
+| T-22 | Missing criterion score | Supervisor leaves one criterion blank | System rejects. Error shown for the missing criterion. |
+| T-23 | Criteria weights do not sum to 100 | Admin sets weights that add up to 90 | System blocks evaluation submission until weights total 100. |
+
+ Placement Tests
+
+| Test ID | Test Description | Input | Expected Result |
+|---------|------------------|-------|-----------------|
+| T-24 | Admin creates a valid placement | All fields filled, no date overlap | Placement created successfully. |
+| T-25 | Overlapping placement blocked | New placement dates overlap with existing placement for same student | System rejects. Error: overlapping placement dates. |
+| T-26 | Student sees their placement | Student logs in after placement is assigned | Placement details (company, supervisor, dates) are visible. |
+
+
