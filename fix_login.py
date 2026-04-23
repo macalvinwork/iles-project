@@ -1,4 +1,4 @@
-import { useState } from "react";
+content = '''import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login as doLogin } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
@@ -56,3 +56,8 @@ export default function Login() {
 const labelStyle = { display: "block", marginBottom: 4, fontWeight: 600, fontSize: "0.875rem" };
 const inputStyle = { display: "block", width: "100%", padding: "0.6rem", marginBottom: "1rem", borderRadius: 6, border: "1px solid #cbd5e1", boxSizing: "border-box" };
 const btnStyle = { width: "100%", padding: "0.75rem", background: "#2563eb", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600 };
+'''
+
+with open('frontend/src/pages/Login.jsx', 'w') as f:
+    f.write(content)
+print('Done.')

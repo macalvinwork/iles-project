@@ -3,26 +3,19 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("user")); }
+    catch { return null; }
+  });
 
-  const login = (email, password) => {
-    // FAKE LOGIN (backend will replace later)
-    if (!email || !password) return false;
-
-    // fake role assignment
-    let role = "student";
-
-    if (email.includes("admin")) role = "admin";
-    else if (email.includes("supervisor")) role = "supervisor";
-    else if (email.includes("academic")) role = "academic";
-
-    const fakeUser = { email, role };
-
-    setUser(fakeUser);
-    return fakeUser;
+  const login = (userObj) => {
+    setUser(userObj);
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    localStorage.clear();
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
