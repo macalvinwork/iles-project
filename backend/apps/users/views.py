@@ -6,13 +6,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from apps.users.models import CustomUser
 from apps.users.serializers import RegisterSerializer, UserSerializer
+from apps.placements.models import InternshipPlacement
+from apps.logs.models import WeeklyLog
+from apps.evaluations.models import Evaluation
 
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        email = request.data.get('email')
+        email = request.data.get('email') or request.data.get('username')
         password = request.data.get('password')
 
         if not email or not password:
@@ -82,10 +85,6 @@ class UserListView(APIView):
         users = CustomUser.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
-
-from apps.placements.models import InternshipPlacement
-from apps.logs.models import WeeklyLog
-from apps.evaluations.models import Evaluation
 
 
 class DashboardView(APIView):
