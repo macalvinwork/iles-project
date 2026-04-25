@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout";
-import { fetchAdminStats } from "../../services/userService";
+import { fetchDashboard } from "../../services/userService";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ students: 0, supervisors: 0, academics: 0, logs: 0 });
@@ -9,7 +9,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAdminStats().then(setStats).catch(console.error).finally(() => setLoading(false));
+    fetchDashboard().then(setStats).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   const cards = [
