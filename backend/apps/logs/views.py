@@ -243,3 +243,20 @@ class LogHistoryView(APIView):
         history = LogStatusHistory.objects.filter(log=log).order_by('timestamp')
         serializer = LogStatusHistorySerializer(history, many=True)
         return Response(serializer.data)
+
+class WeeklyLogDeleteView(APIView):
+
+    def delete(self, request, pk):
+        try:
+            log = WeeklyLog.objects.get(pk=pk)
+        except WeeklyLog.DoesNotExist:
+            return Response({'error': 'Log not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if request.user != log.student:
+            return Response({'error': 'You can only delete your own logs'}, status=status.HTTP_403_FORBIDDEN)
+
+        if log.status != WeeklyLog.DRAFT:
+            return Response({'error': 'Only draft logs can be deleted'}, status=status.HTTP_400_BAD_REQUEST)
+
+        log.delete()
+        return Response({'message': 'Log deleted'}, status=status.HTTP_204_NO_CONTENT)

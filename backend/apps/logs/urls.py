@@ -5,7 +5,8 @@ from apps.logs.views import (
     LogSubmitView,
     LogReviewView,
     LogFinalApproveView,
-    LogHistoryView
+    LogHistoryView,
+    WeeklyLogDeleteView
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/review/', LogReviewView.as_view(), name='log-review'),
     path('<int:pk>/approve/', LogFinalApproveView.as_view(), name='log-approve'),
     path('<int:pk>/history/', LogHistoryView.as_view(), name='log-history'),
+    path('<int:pk>/delete/', WeeklyLogDeleteView.as_view(), name='log-delete'),
 ]

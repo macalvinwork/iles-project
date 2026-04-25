@@ -136,3 +136,21 @@ class DashboardView(APIView):
             )
 
         return Response(data)
+
+class UserDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        if request.user.role != 'ADMIN':
+            return Response({'error': 'Only admins can delete users'}, status=status.HTTP_403_FORBIDDEN)
+
+        try:
+            user = CustomUser.objects.get(pk=pk)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if user == request.user:
+            return Response({'error': 'You cannot delete your own account'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.delete()
+        return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
