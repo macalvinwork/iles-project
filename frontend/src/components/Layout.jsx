@@ -2,20 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const navLinks = {
-  student: [
+  STUDENT: [
     { label: "Dashboard", path: "/student/dashboard" },
     { label: "My Logs", path: "/student/logs" },
-    { label: "Submit Log", path: "/student/logs/create" },
-  ],
-  supervisor: [
+    { label: "Create Log", path: "/student/logs/create" },
+    { label: "My Placement", path: "/student/placement" },
+],
+  SUPERVISOR: [
     { label: "Dashboard", path: "/supervisor/dashboard" },
     { label: "Review Logs", path: "/supervisor/review" },
   ],
-  academic: [
+  ACADEMIC: [
     { label: "Dashboard", path: "/academic/dashboard" },
     { label: "Students", path: "/academic/students" },
   ],
-  admin: [
+  ADMIN: [
     { label: "Dashboard", path: "/admin/dashboard" },
     { label: "Users", path: "/admin/users" },
   ],
