@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { fetchUsers, registerUser, deleteUser } from "../../services/userService";
+import { createPlacement } from "../../services/placementService";
 
 const roleColor = {
   STUDENT: "#2563eb",
@@ -21,7 +22,13 @@ export default function Users() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ email: "", first_name: "", last_name: "", role: "STUDENT", password: "" });
+  const [form, setForm] = useState({
+    email: "", first_name: "", last_name: "",
+    role: "STUDENT", password: ""
+  });
+  const [placement, setPlacement] = useState({
+    company_name: "", start_date: "", end_date: "", workplace_supervisor: ""
+  });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -33,16 +40,31 @@ export default function Users() {
       .finally(() => setLoading(false));
   }, []);
 
+  const supervisors = users.filter(u => u.role === "WORKPLACE_SUPERVISOR");
+
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handlePlacementChange = e => setPlacement({ ...placement, [e.target.name]: e.target.value });
 
   const handleAdd = async (e) => {
     e.preventDefault();
     setError(""); setSuccess(""); setSubmitting(true);
     try {
       const newUser = await registerUser(form);
-      setUsers([...users, newUser]);
+      setUsers(prev => [...prev, newUser]);
+
+      if (form.role === "STUDENT" && placement.company_name) {
+        await createPlacement({
+          student: newUser.id,
+          workplace_supervisor: placement.workplace_supervisor,
+          company_name: placement.company_name,
+          start_date: placement.start_date,
+          end_date: placement.end_date,
+        });
+      }
+
       setSuccess(`User ${form.email} created successfully.`);
       setForm({ email: "", first_name: "", last_name: "", role: "STUDENT", password: "" });
+      setPlacement({ company_name: "", start_date: "", end_date: "", workplace_supervisor: "" });
       setShowForm(false);
     } catch (err) {
       const errors = err.response?.data;
@@ -81,11 +103,13 @@ export default function Users() {
         </button>
       </div>
 
+      {success && <p style={{ color: "#16a34a", fontWeight: 600 }}>{success}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
       {showForm && (
         <div style={{ background: "#fff", padding: "1.5rem", borderRadius: 10, marginBottom: 15 }}>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "#16a34a" }}>{success}</p>}
           <form onSubmit={handleAdd}>
+            <h3 style={{ marginTop: 0 }}>User Details</h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 15 }}>
               <div>
                 <label style={lbl}>First Name</label>
@@ -113,8 +137,38 @@ export default function Users() {
                 </select>
               </div>
             </div>
+
+            {form.role === "STUDENT" && (
+              <>
+                <h3>Placement Details (optional)</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 15 }}>
+                  <div>
+                    <label style={lbl}>Company Name</label>
+                    <input name="company_name" value={placement.company_name} onChange={handlePlacementChange} style={inp} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Workplace Supervisor</label>
+                    <select name="workplace_supervisor" value={placement.workplace_supervisor} onChange={handlePlacementChange} style={inp}>
+                      <option value="">-- Select supervisor --</option>
+                      {supervisors.map(s => (
+                        <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={lbl}>Start Date</label>
+                    <input name="start_date" type="date" value={placement.start_date} onChange={handlePlacementChange} style={inp} />
+                  </div>
+                  <div>
+                    <label style={lbl}>End Date</label>
+                    <input name="end_date" type="date" value={placement.end_date} onChange={handlePlacementChange} style={inp} />
+                  </div>
+                </div>
+              </>
+            )}
+
             <button type="submit" disabled={submitting}
-              style={{ marginTop: 10, padding: "0.6rem 1.5rem", background: "#2563eb", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
+              style={{ marginTop: 15, padding: "0.6rem 1.5rem", background: "#2563eb", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600 }}>
               {submitting ? "Creating..." : "Create User"}
             </button>
           </form>
@@ -145,8 +199,7 @@ export default function Users() {
                   {u.is_active ? "Active" : "Inactive"}
                 </td>
                 <td style={{ padding: "0.75rem 1rem" }}>
-                  <button
-                    onClick={() => handleDelete(u.id, u.email)}
+                  <button onClick={() => handleDelete(u.id, u.email)}
                     style={{ padding: "0.3rem 0.7rem", background: "#dc2626", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontSize: "0.8rem" }}>
                     Delete
                   </button>
