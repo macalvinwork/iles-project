@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Layout from "../../components/Layout";
 import { fetchDashboard, fetchUsers } from "../../services/userService";
 import { fetchLogs } from "../../services/logService";
@@ -41,7 +40,7 @@ export default function AdminDashboard() {
 
   const getUserName = (id) => {
     const u = users.find(u => u.id === id);
-    return u ? `${u.first_name} ${u.last_name}` : `ID: ${id}`;
+    return u ? ${u.first_name} ${u.last_name} : ID: ${id};
   };
 
   const stats = [
@@ -55,9 +54,9 @@ export default function AdminDashboard() {
 
   const tabs = [
     { key: "overview", label: "Overview" },
-    { key: "logs", label: `All Logs (${logs.length})` },
-    { key: "users", label: `Users (${users.length})` },
-    { key: "placements", label: `Placements (${placements.length})` },
+    { key: "logs", label: All Logs (${logs.length}) },
+    { key: "users", label: Users (${users.length}) },
+    { key: "placements", label: Placements (${placements.length}) },
   ];
 
   return (
@@ -65,7 +64,7 @@ export default function AdminDashboard() {
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: "1.5rem" }}>
         {stats.map(s => (
-          <div key={s.label} style={{ background: "#fff", padding: "1rem", borderRadius: 10, borderLeft: `4px solid ${s.color}` }}>
+          <div key={s.label} style={{ background: "#fff", padding: "1rem", borderRadius: 10, borderLeft: 4px solid ${s.color} }}>
             <p style={{ margin: 0, color: "#64748b", fontSize: "0.8rem" }}>{s.label}</p>
             <h2 style={{ margin: "0.25rem 0 0", color: s.color }}>{loading ? "..." : s.value}</h2>
           </div>
@@ -126,7 +125,7 @@ export default function AdminDashboard() {
           {filteredLogs.map(log => {
             const cfg = statusConfig[log.status] || { color: "#64748b", bg: "#f8fafc" };
             return (
-              <div key={log.id} style={{ background: "#fff", padding: "1.25rem", borderRadius: 10, marginBottom: 10, borderLeft: `4px solid ${cfg.color}` }}>
+              <div key={log.id} style={{ background: "#fff", padding: "1.25rem", borderRadius: 10, marginBottom: 10, borderLeft: 4px solid ${cfg.color} }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div>
                     <strong>Week {log.week_number}</strong> — {log.student_name} ({log.student_email})
@@ -184,7 +183,7 @@ export default function AdminDashboard() {
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{u.email}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>{u.role}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>
-                      {u.role === "STUDENT" ? `${userLogs.length} logs` : "—"}
+                      {u.role === "STUDENT" ? ${userLogs.length} logs : "—"}
                     </td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem", color: placement ? "#16a34a" : "#dc2626" }}>
                       {u.role === "STUDENT" ? (placement ? placement.company_name : "Not assigned") : "—"}
@@ -233,50 +232,4 @@ export default function AdminDashboard() {
   );
 }
 
-<<<<<<< HEAD
-const card = {
-  padding: "15px",
-  background: "white",
-  borderRadius: "10px",
-};
-
-export default function Dashboard() {
-
-import Layout from "../../components/Layout";
-
-export default function AdminDashboard() {
-  return (
-    <Layout title="Admin Dashboard">
-
-      <div style={{ display: "grid", gap: "15px" }}>
-
-        <div style={card}>
-          <h3>👥 Users</h3>
-          <button>Manage Users</button>
-        </div>
-
-        <div style={card}>
-          <h3>📍 Placements</h3>
-          <button>Assign Placement</button>
-        </div>
-
-        <div style={card}>
-          <h3>📊 Reports</h3>
-          <button>View Reports</button>
-        </div>
-
-      </div>
-
-    </Layout>
-  );
-}
-
-const card = {
-  padding: "15px",
-  background: "white",
-  borderRadius: "10px",
-};
-}
-=======
 const btn = bg => ({ padding: "0.6rem 1.2rem", background: bg, color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600 });
->>>>>>> 54cb6b3 ( Admin tracks overview, student gets rejection for a log)
