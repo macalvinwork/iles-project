@@ -32,7 +32,10 @@ export default function AdminDashboard() {
         setLogs(l);
         setPlacements(p);
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error('Admin dashboard fetch error:', err);
+        // Optional: setError('Failed to load dashboard data');
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -40,7 +43,7 @@ export default function AdminDashboard() {
 
   const getUserName = (id) => {
     const u = users.find(u => u.id === id);
-    return u ? ${u.first_name} ${u.last_name} : ID: ${id};
+    return u ? `${u.first_name} ${u.last_name}` : `ID: ${id}`;
   };
 
   const stats = [
@@ -54,9 +57,9 @@ export default function AdminDashboard() {
 
   const tabs = [
     { key: "overview", label: "Overview" },
-    { key: "logs", label: All Logs (${logs.length}) },
-    { key: "users", label: Users (${users.length}) },
-    { key: "placements", label: Placements (${placements.length}) },
+    { key: "logs", label: `All Logs (${logs.length})` },
+    { key: "users", label: `Users (${users.length})` },
+    { key: "placements", label: `Placements (${placements.length})` },
   ];
 
   return (
@@ -64,7 +67,7 @@ export default function AdminDashboard() {
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: "1.5rem" }}>
         {stats.map(s => (
-          <div key={s.label} style={{ background: "#fff", padding: "1rem", borderRadius: 10, borderLeft: 4px solid ${s.color} }}>
+          <div key={s.label} style={{ background: "#fff", padding: "1rem", borderRadius: 10, borderLeft: `4px solid ${s.color}` }}>
             <p style={{ margin: 0, color: "#64748b", fontSize: "0.8rem" }}>{s.label}</p>
             <h2 style={{ margin: "0.25rem 0 0", color: s.color }}>{loading ? "..." : s.value}</h2>
           </div>
@@ -125,7 +128,7 @@ export default function AdminDashboard() {
           {filteredLogs.map(log => {
             const cfg = statusConfig[log.status] || { color: "#64748b", bg: "#f8fafc" };
             return (
-              <div key={log.id} style={{ background: "#fff", padding: "1.25rem", borderRadius: 10, marginBottom: 10, borderLeft: 4px solid ${cfg.color} }}>
+              <div key={log.id} style={{ background: "#fff", padding: "1.25rem", borderRadius: 10, marginBottom: 10, borderLeft: `4px solid ${cfg.color}` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div>
                     <strong>Week {log.week_number}</strong> — {log.student_name} ({log.student_email})
@@ -183,7 +186,7 @@ export default function AdminDashboard() {
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{u.email}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>{u.role}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>
-                      {u.role === "STUDENT" ? ${userLogs.length} logs : "—"}
+                      {u.role === "STUDENT" ? `${userLogs.length} logs` : "—"}
                     </td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem", color: placement ? "#16a34a" : "#dc2626" }}>
                       {u.role === "STUDENT" ? (placement ? placement.company_name : "Not assigned") : "—"}
@@ -218,8 +221,8 @@ export default function AdminDashboard() {
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{p.start_date}</td>
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{p.end_date}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>
-                      {studentLogs.length} total |
-                      <span style={{ color: "#16a34a" }}> {studentLogs.filter(l => l.status === "COMPLETED").length} done</span>
+                      `${studentLogs.length} total |
+                      <span style={{ color: "#16a34a" }}> ${studentLogs.filter(l => l.status === "COMPLETED").length} done</span>`
                     </td>
                   </tr>
                 );
