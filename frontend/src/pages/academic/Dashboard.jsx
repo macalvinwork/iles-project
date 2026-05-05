@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { fetchDashboard } from "../../services/userService";
@@ -114,7 +113,7 @@ export default function AcademicDashboard() {
       )}
 
       {logs.map(log => (
-        <div key={log.id} style={{ background: "#fff", padding: "1.5rem", borderRadius: 10, marginBottom: 15, boxShadow: "0 1px 4px rgba(0,0,0,0.07)", borderLeft: `4px solid ${log.status === "COMPLETED" ? "#16a34a" : "#7c3aed"}` }}>
+        <div key={log.id} style={{ background: "#fff", padding: "1.5rem", borderRadius: 10, marginBottom: 15, boxShadow: "0 1px 4px rgba(0,0,0,0.07)", borderLeft: 4px solid ${log.status === "COMPLETED" ? "#16a34a" : "#7c3aed"} }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <h3 style={{ margin: 0 }}>Week {log.week_number}</h3>
@@ -210,64 +209,4 @@ export default function AcademicDashboard() {
   );
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-const card = {
-  padding: "15px",
-  background: "#fff",
-  borderRadius: "10px",
-};
-
-export default function Dashboard() {
-
-import Layout from "../../components/Layout";
-
-export default function AcademicDashboard() {
-  return (
-    <Layout title="Academic Supervisor">
-
-      <div style={{ display: "grid", gap: "15px" }}>
-
-        <div style={card}>
-          <h3>🎯 Students to Evaluate</h3>
-          <button>View Students</button>
-        </div>
-
-        <div style={card}>
-          <h3>📊 Scoring</h3>
-          <button>Open Evaluation Form</button>
-        </div>
-
-      </div>
-
-    </Layout>
-  );
-}
-
-const card = {
-  padding: "15px",
-  background: "#fff",
-  borderRadius: "10px",
-};
-
-const btnStyle = (bg) => ({ padding: "0.75rem", background: bg, color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600, fontSize: "1rem" });
-
-=======
-const btn = bg => ({
-  padding: "0.6rem 1.2rem", background: bg, color: "#fff",
-  border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600
-});
->>>>>>> d8b3e49 (Merge frontend and backend)
-=======
 const lbl = { display: "block", fontWeight: 600, marginBottom: 4, fontSize: "0.875rem" };
-<<<<<<< HEAD
-const inp = { display: "block", width: "100%", padding: "0.6rem", marginBottom: "1rem", borderRadius: 6, border: "1px solid #cbd5e1", boxSizing: "border-box" };
->>>>>>> 1d27c8d (admin able to make palcements)
-=======
-const inp = { display: "block", width: "100%", padding: "0.6rem", borderRadius: 6, border: "1px solid #cbd5e1", boxSizing: "border-box" };
->>>>>>> cccbfc6 ( amendement on frontend admin and academic users)
-=======
-const lbl = { display: "block", fontWeight: 600, marginBottom: 4, fontSize: "0.875rem" };
->>>>>>> 54cb6b3 ( Admin tracks overview, student gets rejection for a log)
