@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-import { Routes, Route } from "react-router-dom";
-
-
-import Login from "./pages/auth/Login";
-=======
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Unauthorized from "./pages/Unauthorized";
->>>>>>> cb1beef (Add/update frontend)
 
 import StudentDashboard from "./pages/student/Dashboard";
 import Logs from "./pages/student/Logs";
@@ -34,72 +27,6 @@ const R = (role, el) => <ProtectedRoute role={role}>{el}</ProtectedRoute>;
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <Routes>
-
-
-      <Route path="/" element={<Login />} />
-
-
-      {/* PUBLIC */}
-      <Route path="/" element={<Login />} />
-
-      {/* STUDENT */}
-
-
-      <Route path="/" element={<Login />} />
-
-
-      <Route
-        path="/student"
-        element={
-          <ProtectedRoute>
-            <StudentDashboard />
-          </ProtectedRoute>
-        }
-      />
-
-
-
-      {/* SUPERVISOR */}
-
-      <Route
-        path="/supervisor"
-        element={
-          <ProtectedRoute>
-            <SupervisorDashboard />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* ACADEMIC */}
-
-      <Route
-        path="/academic"
-        element={
-          <ProtectedRoute>
-            <AcademicDashboard />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* ADMIN */}
-
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
-}
-
-export default App;
-=======
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -133,4 +60,3 @@ export default App;
     </AuthProvider>
   );
 }
->>>>>>> cb1beef (Add/update frontend)

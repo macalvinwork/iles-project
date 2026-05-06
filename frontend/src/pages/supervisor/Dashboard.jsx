@@ -11,7 +11,7 @@ export default function SupervisorDashboard() {
   useEffect(() => {
     fetchDashboard()
       .then(setData)
-      .catch((err) => console.error('Supervisor dashboard error:', err))
+      .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
 

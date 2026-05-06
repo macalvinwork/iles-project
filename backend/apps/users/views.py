@@ -153,7 +153,4 @@ class UserDeleteView(APIView):
             return Response({'error': 'You cannot delete your own account'}, status=status.HTTP_400_BAD_REQUEST)
 
         user.delete()
-
-        return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
-
         return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)

@@ -23,7 +23,7 @@ export default function AcademicDashboard() {
         setAllLogs(logsData);
         setLogs(logsData.filter(l => l.status === "PENDING_ACADEMIC_EVALUATION"));
       })
-      .catch((err) => { console.error('Dashboard fetch error:', err); setError('Failed to load dashboard data'); })
+      .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
 
@@ -112,9 +112,8 @@ export default function AcademicDashboard() {
         </p>
       )}
 
-{logs.map(log => (
+      {logs.map(log => (
         <div key={log.id} style={{ background: "#fff", padding: "1.5rem", borderRadius: 10, marginBottom: 15, boxShadow: "0 1px 4px rgba(0,0,0,0.07)", borderLeft: `4px solid ${log.status === "COMPLETED" ? "#16a34a" : "#7c3aed"}` }}>
-
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <h3 style={{ margin: 0 }}>Week {log.week_number}</h3>

@@ -32,10 +32,7 @@ export default function AdminDashboard() {
         setLogs(l);
         setPlacements(p);
       })
-      .catch((err) => {
-        console.error('Admin dashboard fetch error:', err);
-        // Optional: setError('Failed to load dashboard data');
-      })
+      .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
 
@@ -221,8 +218,8 @@ export default function AdminDashboard() {
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{p.start_date}</td>
                     <td style={{ padding: "0.75rem 1rem", color: "#64748b", fontSize: "0.85rem" }}>{p.end_date}</td>
                     <td style={{ padding: "0.75rem 1rem", fontSize: "0.85rem" }}>
-                      `${studentLogs.length} total |
-                      <span style={{ color: "#16a34a" }}> ${studentLogs.filter(l => l.status === "COMPLETED").length} done</span>`
+                      {studentLogs.length} total |
+                      <span style={{ color: "#16a34a" }}> {studentLogs.filter(l => l.status === "COMPLETED").length} done</span>
                     </td>
                   </tr>
                 );
