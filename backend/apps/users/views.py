@@ -113,16 +113,18 @@ class DashboardView(APIView):
 
         elif user.role == 'WORKPLACE_SUPERVISOR':
             data = {
-                'total_interns': InternshipPlacement.objects.filter(workplace_supervisor=user).count(),
-                'pending_reviews': WeeklyLog.objects.filter(
-                    placement__workplace_supervisor=user,
-                    status='SUBMITTED'
-                ).count(),
-                'approved_logs': WeeklyLog.objects.filter(
-                    placement__workplace_supervisor=user,
-                    status='APPROVED'
-                ).count(),
-            }
+        'total_interns': InternshipPlacement.objects.filter(
+            workplace_supervisor=user
+        ).count(),
+        'pending_reviews': WeeklyLog.objects.filter(
+            placement__workplace_supervisor=user,
+            status__in=['PENDING_WORK_APPROVAL', 'RESUBMITTED']
+        ).count(),
+        'approved_logs': WeeklyLog.objects.filter(
+            placement__workplace_supervisor=user,
+            status='COMPLETED'
+        ).count(),
+    }
 
         elif user.role == 'ACADEMIC_SUPERVISOR':
             data = {
