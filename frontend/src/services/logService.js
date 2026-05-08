@@ -7,7 +7,12 @@ export const updateLog = (id, data) => api.put(`/logs/${id}/`, data).then(r => r
 export const deleteLog = (id) => api.delete(`/logs/${id}/delete/`).then(r => r.data);
 export const submitLog = (id) => api.post(`/logs/${id}/submit/`, {}).then(r => r.data);
 export const workApproveLog = (id, action, rating, feedback, rejection_reason) =>
-  api.post(`/logs/${id}/work-approval/`, { action, rating, feedback, rejection_reason }).then(r => r.data);
+  api.post(`/logs/${id}/work-approval/`, {
+    action,
+    ...(rating !== undefined && { rating }),
+    feedback,
+    rejection_reason
+  }).then(r => r.data);
 export const academicEvaluateLog = (id, grade, comments) =>
   api.post(`/logs/${id}/academic-evaluation/`, { grade, comments }).then(r => r.data);
 export const fetchLogHistory = (id) => api.get(`/logs/${id}/history/`).then(r => r.data);

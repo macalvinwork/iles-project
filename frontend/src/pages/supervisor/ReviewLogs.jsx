@@ -85,29 +85,21 @@ export default function ReviewLogs() {
   };
 
   const handleReject = async (id) => {
-    if (!rejections[id]?.trim()) return alert("Please enter a rejection reason.");
-    setActionLoading(id + "REJECT");
-    try {
-      await workApproveLog(id, "REJECT", null, "", rejections[id]);
-      setAllLogs(prev => {
-        const updated = prev.map(l =>
-          l.id === id ? { ...l, status: "RETURNED", supervisor_rejection_reason: rejections[id] } : l
-        );
-        if (filter === "PENDING") {
-          setLogs(updated.filter(l => l.status === "PENDING_WORK_APPROVAL" || l.status === "RESUBMITTED"));
-        } else if (filter === "ALL") {
-          setLogs(updated);
-        } else {
-          setLogs(updated.filter(l => l.status === filter));
-        }
-        return updated;
-      });
-    } catch (err) {
-      setError(err.response?.data?.error || "Failed to reject.");
-    } finally {
-      setActionLoading(null);
-    }
-  };
+  if (!rejections[id]?.trim()) return alert("Please enter a rejection reason.");
+  setActionLoading(id + "REJECT");
+  try {
+    await workApproveLog(id, "REJECT", undefined, "", rejections[id]);
+    setAllLogs(prev => {
+      const updated = prev.map(l => l.id === id ? { ...l, status: "RETURNED" } : l);
+      handleFilterUpdate(updated, filter);
+      return updated;
+    });
+  } catch (err) {
+    setError(err.response?.data?.error || "Failed to reject.");
+  } finally {
+    setActionLoading(null);
+  }
+};
 
   const getCount = (f) => {
     if (f === "PENDING") return allLogs.filter(l => l.status === "PENDING_WORK_APPROVAL" || l.status === "RESUBMITTED").length;

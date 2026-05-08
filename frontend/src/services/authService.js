@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE = "http://localhost:8000/api";
 
 export const login = async (username, password) => {
-  const res = await axios.post(`${BASE}/auth/token/`, { username, password });
+  const res = await axios.post(`${BASE}/auth/login/`, { username, password });
   localStorage.setItem("access_token", res.data.access);
   localStorage.setItem("refresh_token", res.data.refresh);
   const payload = JSON.parse(atob(res.data.access.split(".")[1]));
