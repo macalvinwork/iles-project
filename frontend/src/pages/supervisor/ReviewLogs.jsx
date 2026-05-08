@@ -84,7 +84,13 @@ export default function ReviewLogs() {
     }
   };
 
-  const handleReject = async (id) => {
+  const handleFilterUpdate = (updated, f) => {
+  if (f === "ALL") setLogs(updated);
+  else if (f === "PENDING") setLogs(updated.filter(l => l.status === "PENDING_WORK_APPROVAL" || l.status === "RESUBMITTED"));
+  else setLogs(updated.filter(l => l.status === f));
+};
+
+const handleReject = async (id) => {
   if (!rejections[id]?.trim()) return alert("Please enter a rejection reason.");
   setActionLoading(id + "REJECT");
   try {
