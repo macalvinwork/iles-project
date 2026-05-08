@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'apps.users',
+    'apps.notifications',
     'apps.placements',
     'apps.logs',
     'apps.evaluations',
