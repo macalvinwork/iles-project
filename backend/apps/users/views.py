@@ -156,3 +156,14 @@ class UserDeleteView(APIView):
 
         user.delete()
         return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            user = CustomUser.objects.get(pk=pk)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
