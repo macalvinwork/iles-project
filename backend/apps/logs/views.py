@@ -181,7 +181,6 @@ class LogSubmitView(APIView):
                 )   
                 # Send notification safely
                 try:
-                    from apps.notifications.models import Notification
                     if log.placement and log.placement.workplace_supervisor:
                         Notification.objects.create(
                             recipient=log.placement.workplace_supervisor,
@@ -252,8 +251,6 @@ class LogWorkApprovalView(APIView):
             )
             
             try:
-                from apps.notifications.models import Notification
-                from apps.users.models import CustomUser
 
                 if action == 'APPROVE':
                     # Notify student
